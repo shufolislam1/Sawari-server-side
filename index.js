@@ -43,8 +43,15 @@ async function run() {
 
       app.post('/newStock', async (req, res) => {
         const newStock = req.body;
-        console.log('adding new stock');
+        console.log('adding new stock', newStock);
         const result = await stocksCollection.insertOne(newStock)
+        res.send(result)
+      })
+
+      app.delete('/stock/:id', async (req, res) => {
+        const id = req.params.id;
+        const query = {_id: ObjectId(id)};
+        const result = await stocksCollection.deleteOne(query);
         res.send(result)
       })
 
