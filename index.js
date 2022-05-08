@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const { response } = require('express');
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -31,6 +32,20 @@ async function run() {
         const query = {_id: ObjectId(id)};
         const stock = await stocksCollection.findOne(query);
         res.send(stock)
+      })
+
+      app.get('/stockCount', async (req, res) => {
+        const query = {}
+        const cursor = stocksCollection.find(query);
+        const count = await cursor.count()
+        res.send({count})
+      })
+
+      app.post('/newStock', async (req, res) => {
+        const newStock = req.body;
+        console.log('adding new stock');
+        const result = await stocksCollection.insertOne(newStock)
+        res.send(result)
       })
 
   }
