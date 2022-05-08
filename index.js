@@ -41,12 +41,19 @@ async function run() {
         res.send({count})
       })
 
-      // app.post('/newStock', async (req, res) => {
-      //   const newStock = req.body;
-      //   console.log('adding new stock', newStock);
-      //   const result = await stocksCollection.insertOne(newStock)
-      //   res.send(result)
-      // })
+      app.put('/stock/:id', async (req, res) => {
+         const id = req.params.id;
+         const updateStock = req.body;
+         const filter = {_id: ObjectId(id)};
+         const options = {upsert: true};
+         const updateDoc = {
+           $set: {
+             quantity: updateStock.quantity
+           }
+         };
+         const result = await stocksCollection.updateOne(filter, updateDoc, options)
+         res.send(result)
+      })
 
       app.delete('/stock/:id', async (req, res) => {
         const id = req.params.id;
