@@ -41,12 +41,12 @@ async function run() {
         res.send({count})
       })
 
-      app.post('/newStock', async (req, res) => {
-        const newStock = req.body;
-        console.log('adding new stock', newStock);
-        const result = await stocksCollection.insertOne(newStock)
-        res.send(result)
-      })
+      // app.post('/newStock', async (req, res) => {
+      //   const newStock = req.body;
+      //   console.log('adding new stock', newStock);
+      //   const result = await stocksCollection.insertOne(newStock)
+      //   res.send(result)
+      // })
 
       app.delete('/stock/:id', async (req, res) => {
         const id = req.params.id;
