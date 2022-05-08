@@ -72,7 +72,7 @@ run().catch(console.dir)
 
 
 app.get('/', (req, res) => {
-    res.send('running sawari')
+    res.send('Running sawari')
 })
 
 app.listen(port, () => {
